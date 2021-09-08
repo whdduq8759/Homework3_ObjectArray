@@ -7,10 +7,13 @@ public class MemberController {
     private Member[] m = new Member[SIZE];
     public static final int SIZE = 10;
 
+
     public MemberController() {
+
         m[0] = new Member("abc", "김철수", "1234", "abc@gmail.com", 'm', 24);
-        m[1] = new Member("zzz", "박사장", "4567", "abc@gmail.com", 'w', 12);
-        m[2] = new Member("xxx", "김철수", "8999", "abc@gmail.com", 'm', 36);
+        m[1] = new Member("def", "박영희", "4312", "def@gmail.com", 'f', 43);
+        m[2] = new Member("ghi", "김철수", "6655", "ghi@gmail.com", 'm', 52);
+
     }
 
     //실제 저장된 회원의 숫자를 반환
@@ -51,42 +54,38 @@ public class MemberController {
         }
         return null;
     }
-
     // 이름을 입력하면 그 아이디에 해당하는 회원들의 정보 리턴
     public Member[] searchName(String name) {
-        // 이름이 일치하는 회원들을 저장할 배열
+
+        //이름이 일치하는 회원들을 저장할 배열
         Member[] foundMembers = {};
 
         for (int i = 0; i < existMemberNum(); i++) {
-            if (name.equals(m[i].getId())) {
+            if (name.equals(m[i].getName())) {
                 foundMembers = pushMember(foundMembers, m[i]);
             }
         }
         return foundMembers;
     }
 
-    // 멤버 배열에 데이터를 추가하는 메소드
+    //멤버 배열에 데이터를 추가하는 메서드
     private Member[] pushMember(Member[] targets, Member newMember) {
-
 
         Member[] temp = new Member[targets.length + 1];
 
-
-        for (int i = 0; i < targets.length; i++) {
+        for (int i=0; i < targets.length; i++) {
             temp[i] = targets[i];
         }
-        
-        temp[temp.length - 1] = newMember;
-
+        temp[temp.length-1] = newMember;
 
         return temp;
-
     }
+
 
     // 이메일 입력하면 그 아이디에 해당하는 회원 1명의 정보 리턴
     public Member searchEmail(String email) {
         for (int i = 0; i < existMemberNum(); i++) {
-            if (email.equals(m[i].getId())) {
+            if (email.equals(m[i].getEmail())) {
                 return m[i];
             }
         }
@@ -95,14 +94,12 @@ public class MemberController {
 
     public boolean updatePassword(String id, String password) {
         Member member = searchId(id);
-        if(member != null) {
+        if (member != null) {
             member.setPassword(password);
             return true;
         } else {
             return false;
         }
-
-
     }
 
     public boolean updateName(String id, String name) {
@@ -113,12 +110,16 @@ public class MemberController {
         return false;
     }
 
+    //회원정보 하나를 삭제하는 메서드
     public boolean delete(String id) {
         return false;
     }
 
+    //회원정보를 전체 삭제하는 메서드
     public void delete() {
-
+        for (int i = 0; i < m.length; i++) {
+            m[i] = null;
+        }
     }
 
     public Member[] printAll() {
