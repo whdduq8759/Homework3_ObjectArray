@@ -54,6 +54,7 @@ public class MemberController {
         }
         return null;
     }
+
     // 이름을 입력하면 그 아이디에 해당하는 회원들의 정보 리턴
     public Member[] searchName(String name) {
 
@@ -73,10 +74,10 @@ public class MemberController {
 
         Member[] temp = new Member[targets.length + 1];
 
-        for (int i=0; i < targets.length; i++) {
+        for (int i = 0; i < targets.length; i++) {
             temp[i] = targets[i];
         }
-        temp[temp.length-1] = newMember;
+        temp[temp.length - 1] = newMember;
 
         return temp;
     }
@@ -103,15 +104,34 @@ public class MemberController {
     }
 
     public boolean updateName(String id, String name) {
-        return false;
+        Member member = searchId(id);
+        if (member != null) {
+            member.setName(name);
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     public boolean updateEmail(String id, String email) {
-        return false;
+        Member member = searchId(id);
+        if (member != null) {
+            member.setEmail(email);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     //회원정보 하나를 삭제하는 메서드
     public boolean delete(String id) {
+        for (int i = 0; i < m.length; i++) {
+            if (id.equals(m[i].getId())) {
+                m[i] = null;
+                return true;
+            }
+        }
         return false;
     }
 
@@ -120,6 +140,7 @@ public class MemberController {
         for (int i = 0; i < m.length; i++) {
             m[i] = null;
         }
+
     }
 
     public Member[] printAll() {

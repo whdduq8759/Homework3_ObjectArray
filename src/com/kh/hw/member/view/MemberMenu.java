@@ -227,7 +227,7 @@ public class MemberMenu {
             System.out.print("# 새로운 비밀번호: ");
             String newPw = sc.next();
 
-            if(mc.updatePassword(id, newPw)) {
+            if (mc.updatePassword(id, newPw)) {
                 System.out.println("\n# 비밀번호 변경에 성공했습니다.");
             } else {
                 System.out.println("\n# 비밀번호 변경에 실패했습니다.");
@@ -237,10 +237,45 @@ public class MemberMenu {
     }
 
     public void updateName() {
+        System.out.println("\n# 이름을 변경합니다.");
+        System.out.print("# 아이디를 입력: ");
+        String id = sc.next();
 
+        Member member = mc.searchId(id);
+        if (member == null) {
+            System.out.println("\n# 존재하지 않는 회원입니다.");
+        } else {
+            System.out.printf("# %s님의 이름을 변경합니다.\n", member.getName());
+            System.out.print("# 새로운 이름: ");
+            String newName = sc.next();
+
+            if (mc.updateName(id, newName)) {
+                System.out.println("\n# 이름 변경에 성공했습니다.");
+            } else {
+                System.out.println("\n# 이름 변경에 실패했습니다.");
+            }
+        }
     }
 
     public void updateEmail() {
+        System.out.println("\n# 이메일을 변경합니다.");
+        System.out.print("# 아이디를 입력: ");
+        String id = sc.next();
+
+        Member member = mc.searchId(id);
+        if (member == null) {
+            System.out.println("\n# 존재하지 않는 회원입니다.");
+        } else {
+            System.out.printf("# %s님의 이메일을 변경합니다.\n", member.getName());
+            System.out.print("# 새로운 이메일: ");
+            String newEmail = sc.next();
+
+            if (mc.updateName(id, newEmail)) {
+                System.out.println("\n# 이름 변경에 성공했습니다.");
+            } else {
+                System.out.println("\n# 이름 변경에 실패했습니다.");
+            }
+        }
 
     }
 
@@ -271,6 +306,28 @@ public class MemberMenu {
     }
 
     public void deleteOne() {
+        System.out.println("\n#특정 회원 삭제합니다.");
+        System.out.print("#아이디를 입력: ");
+        String id = sc.next();
+
+        Member member = mc.searchId(id);
+
+        if (member == null) {
+            System.out.println("\n# 존재하지 않는 회원입니다.");
+        } else {
+            System.out.printf("# %s님의 정보를 삭제합니다.\n", member.getName());
+            System.out.println("\n# 정말로 전체 삭제하시겠습니까? [y/n]");
+
+            String check = sc.next();
+
+            if(check.equalsIgnoreCase("y")) {
+                mc.delete(id);
+                System.out.println("성공적으로 삭제하였습니다.");
+            } else {
+                System.out.println("# 삭제를 취소합니다.");
+            }
+
+        }
 
     }
 
@@ -279,6 +336,7 @@ public class MemberMenu {
         String check = sc.next();
         if (check.equalsIgnoreCase("y")) {
             mc.delete();
+            System.out.println("성공적으로 삭제하였습니다.");
         } else {
             System.out.println("# 전체 삭제를 취소합니다.");
         }
